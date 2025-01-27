@@ -79,13 +79,31 @@ public:
         for (auto card : cardDeck)
         {
             card.displayCard();
+            std::cout << std::endl;
         }
+    }
+
+    std::vector<Card> drawCards(int numCards)
+    {
+        std::vector<Card> cards;
+
+        if (numCards > cardDeck.size())
+        {
+            std::cerr << "Cannot draw more cards than available in the deck!\n";
+            return cards;
+        }
+
+        for (int i = 0; i < numCards; ++i)
+        {
+            cards.push_back(cardDeck[i]);
+        }
+        return cards;
     }
 };
 
 int main()
 {
-    Card random = Card("Ace", "Club");
-    random.displayCard();
+    Deck myDeck = Deck(1);
+    myDeck.displayDeck();
     return 0;
 }
