@@ -1,3 +1,6 @@
+#ifndef CARDH_H
+#define CARD_H
+
 #include <string>
 
 struct Card
@@ -10,3 +13,5 @@ struct Card
     Card(const std::string r, const std::string s);
     void displayCard();
 };
+
+#endif
