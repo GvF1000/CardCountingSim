@@ -18,17 +18,21 @@ private:
     void fillDeck();
 
 public:
-    void shuffleDeck();
-
     Deck(int decks = 1);
 
-    void moveBackCards(const int numCards);
-
-    void displayDeck();
+    void shuffleDeck();
 
     std::vector<Card> drawCards(const int numCards);
 
-    int checkCardsPlayed();
+    void moveBackCards(const int numCards);
+
+    int getCardsPlayed();
+
+    int getDeckSize();
+
+    void displayDeck();
+
+    void displayCardsLeft();
 };
 
 #endif

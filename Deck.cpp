@@ -78,4 +78,20 @@ std::vector<Card> Deck::drawCards(const int numCards)
     return cards;
 }
 
-int Deck::checkCardsPlayed() {return cardsPlayed;}
+int Deck::getCardsPlayed() 
+{
+    return cardsPlayed;
+}
+
+void Deck::displayCardsLeft()
+{
+    for (const auto& pair : cardsLeft)
+    {
+        std::cout << pair.first << " : " << pair.second << "\n\n";
+    }
+}
+
+int Deck::getDeckSize()
+{
+    return (numDecks * 52);
+}
