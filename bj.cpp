@@ -11,7 +11,7 @@ struct Card
     bool faceCard;
     int score;
 
-    Card(std::string r, std::string s) : rank(r), suite(s) 
+    Card(const std::string r, const std::string s) : rank(r), suite(s) 
     {
         faceCard = (rank == "King" || rank == "Queen" || rank == "Jack");
         if (faceCard) {score = 10;}
@@ -41,9 +41,9 @@ private:
     {
         for (int i = 0; i < numDecks; i++)
         {
-            for (std::string rank : ranks)
+            for (const std::string rank : ranks)
             {
-                for (std::string suite : suites) 
+                for (const std::string suite : suites) 
                 {
                     cardDeck.push_back(Card(rank, suite));
                 }
@@ -69,7 +69,7 @@ public:
         shuffleDeck();
     }
 
-    void moveBackCards(int numCards)
+    void moveBackCards(const int numCards)
     { 
         if (numCards > cardDeck.size())
         {
@@ -88,20 +88,20 @@ public:
 
     void displayDeck()
     {
-        for (auto card : cardDeck)
+        for (Card card : cardDeck)
         {
             card.displayCard();
             std::cout << std::endl;
         }
     }
 
-    std::vector<Card> drawCards(int numCards)
+    std::vector<Card> drawCards(const int numCards)
     {
         std::vector<Card> cards;
 
-        if (numCards > cardDeck.size())
+        if (numCards > cardDeck.size()) 
         {
-            std::cerr << "Cannot draw more cards than available in the deck!\n";
+            std::cerr << "Insufficient cards in the deck. Only " << cardDeck.size() << " cards left.\n";
             return cards;
         }
 
@@ -120,7 +120,7 @@ struct Hand
     int betAmount = 0;
     std::vector<Card> cards;
 
-    Hand(std::vector<Card> handCards = {}, int betAmount = 0) : cards(handCards)
+    Hand(std::vector<Card> const handCards = {}, const int betAmount = 0) : cards(handCards)
     {
         for (Card card : cards) {score += card.score;}
     }
@@ -135,9 +135,9 @@ private:
     int balance;
 
 public:
-    Player(std::string playerName, int palyerBalance = 0) : name(playerName), balance(palyerBalance) {}
+    Player(const std::string playerName, const int palyerBalance = 0) : name(playerName), balance(palyerBalance) {}
 
-    void drawHands(Deck& deck, int numCards, int numHands)
+    void drawHands(Deck& deck, const int numCards, const int numHands)
     {
         for (int i = 0; i < numHands; ++i)
         {
@@ -152,9 +152,9 @@ public:
         hands = {};
     }
 
-    void winHand(Hand hand) {balance += hand.betAmount;}
+    void winHand(const Hand hand) {balance += hand.betAmount;}
 
-    void looseHand(Hand hand) {balance -= hand.betAmount;}
+    void looseHand(const Hand hand) {balance -= hand.betAmount;}
 
     void displayHands()
     {
@@ -167,7 +167,7 @@ private:
     Hand hand;
 
 public:
-    void drawHand(Deck& deck, int numCards)
+    void drawHand(Deck& deck, const int numCards)
     {
         hand = Hand(deck.drawCards(numCards));
     }
