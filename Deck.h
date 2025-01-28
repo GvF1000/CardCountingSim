@@ -27,6 +27,8 @@ public:
     void displayDeck();
 
     std::vector<Card> drawCards(const int numCards);
+
+    int checkCardsPlayed();
 };
 
 #endif

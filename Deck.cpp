@@ -77,3 +77,5 @@ std::vector<Card> Deck::drawCards(const int numCards)
     moveBackCards(numCards);
     return cards;
 }
+
+int Deck::checkCardsPlayed() {return cardsPlayed;}
