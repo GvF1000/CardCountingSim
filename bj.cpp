@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <random>
-
+#include <unordered_map>
 struct Card
 {
     std::string rank;
@@ -27,26 +27,28 @@ struct Card
     }
 
 };
-
 class Deck
 {
 private:
+    int numDecks;
     std::vector<Card> cardDeck;
     std::string suites[4] = {"Club", "Heart", "Diamond", "Spade"};
     std::string ranks[13] = {"Ace", "King", "Queen", "Jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
+    std::unordered_map<std::string, int> cardsLeft;
     int cardsPlayed = 0;
 
-    void fillDeck(int Decks)
+    void fillDeck()
     {
-        for (int i = 0; i < Decks; i++)
+        for (int i = 0; i < numDecks; i++)
         {
-            for (std::string suite : suites)
+            for (std::string rank : ranks)
             {
-                for (std::string rank : ranks)
+                for (std::string suite : suites) 
                 {
                     cardDeck.push_back(Card(rank, suite));
                 }
             }
+
         }
     }
 
@@ -56,11 +58,14 @@ public:
         std::random_device rd;
         std::mt19937 g(rd());
         std::shuffle(cardDeck.begin(), cardDeck.end(), g);
+
+        for (std::string rank : ranks) {cardsLeft[rank] = (4 * numDecks);}
+        cardsPlayed = 0;
     }
 
-    Deck(int numDecks = 1) 
+    Deck(int decks = 1) : numDecks(decks)
     {
-        fillDeck(numDecks);
+        fillDeck();
         shuffleDeck();
     }
 
@@ -71,7 +76,14 @@ public:
             std::cerr << "Cannot move more cards than available in the deck!\n";
             return;
         }
+
+        for (int i = 0; i < numCards; ++i)
+        {
+            cardsLeft[cardDeck[i].rank] -= 1;
+        }
+
         std::rotate(cardDeck.begin(), cardDeck.begin() + numCards, cardDeck.end());
+        cardsPlayed += numCards;
     }
 
     void displayDeck()
@@ -97,13 +109,79 @@ public:
         {
             cards.push_back(cardDeck[i]);
         }
+
+        moveBackCards(numCards);
         return cards;
     }
+};
+struct Hand
+{
+    int score = 0;
+    int betAmount = 0;
+    std::vector<Card> cards;
+
+    Hand(std::vector<Card> handCards = {}, int betAmount = 0) : cards(handCards)
+    {
+        for (Card card : cards) {score += card.score;}
+    }
+
+    void displayHand() {for (Card card : cards) {card.displayCard();}}
+};
+class Player
+{
+private:
+    std::vector<Hand> hands;
+    std::string name;
+    int balance;
+
+public:
+    Player(std::string playerName, int palyerBalance = 0) : name(playerName), balance(palyerBalance) {}
+
+    void drawHands(Deck& deck, int numCards, int numHands)
+    {
+        for (int i = 0; i < numHands; ++i)
+        {
+            Hand hand = Hand(deck.drawCards(numCards));
+
+            hands.push_back(hand);
+        }
+    }
+
+    void resetHands()
+    {
+        hands = {};
+    }
+
+    void winHand(Hand hand) {balance += hand.betAmount;}
+
+    void looseHand(Hand hand) {balance -= hand.betAmount;}
+
+    void displayHands()
+    {
+        for (Hand hand : hands) {hand.displayHand();}
+    }
+};
+class Dealer
+{
+private:
+    Hand hand;
+
+public:
+    void drawHand(Deck& deck, int numCards)
+    {
+        hand = Hand(deck.drawCards(numCards));
+    }
+
+    void resetHand()
+    {
+        hand = Hand();
+    }
+
+    void displayHand() {hand.displayHand();}
 };
 
 int main()
 {
     Deck myDeck = Deck(1);
-    myDeck.displayDeck();
     return 0;
 }
