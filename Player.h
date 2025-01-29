@@ -14,7 +14,7 @@ private:
 public:
     Player(const std::string playerName, const int palyerBalance = 0);
 
-    void drawHands(Deck& deck, const int numCards, const int numHands);
+    void drawHands(Deck& deck, const int numCards, int betamount);
 
     void resetHands();
 
