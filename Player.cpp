@@ -10,6 +10,11 @@ void Player::drawCards(Deck& deck, const int numCards, const int handBetAmount)
     hands.push_back(hand);
 }
 
+void Player::hit(Deck& deck, Hand* hand)
+{
+    hand->cards.push_back(deck.drawCards(1)[0]);
+}
+
 void Player::resetHands()
 {
     hands = {};

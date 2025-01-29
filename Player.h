@@ -16,6 +16,8 @@ public:
 
     void drawCards(Deck& deck, const int numCards, const int handBetAmount = 0);
 
+    void hit(Deck& deck, Hand* hand);
+
     void resetHands();
 
     void winHand(const Hand hand);
