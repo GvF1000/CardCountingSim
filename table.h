@@ -9,13 +9,14 @@ class Table
 private:
     std::vector<Player*> players;
     Dealer dealer;
+    unsigned int decks;
     unsigned int betLimit;
     unsigned int deckPenetration;
     bool hitSoft17;
     bool doubleAfterSplit;
 
 public:
-    Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const bool tableHitSoft17, const bool tableDoubleAfterSplit);
+    Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const unsigned int numDecks, const bool tableHitSoft17, const bool tableDoubleAfterSplit);
 
     void addPlayer(Player* player);
 
