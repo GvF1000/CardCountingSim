@@ -12,7 +12,9 @@ void Player::drawCards(Deck& deck, const int numCards, const int handBetAmount)
 
 void Player::hit(Deck& deck, Hand* hand)
 {
-    hand->cards.push_back(deck.drawCards(1)[0]);
+    Card newCard = deck.drawCards(1)[0];
+    hand->cards.push_back(newCard);
+    hand->score += newCard.score;
 }
 
 void Player::resetHands()
