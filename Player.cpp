@@ -22,14 +22,26 @@ void Player::resetHands()
     hands = {};
 }
 
-void Player::winHand(const Hand* hand) 
+void Player::removeHand(Hand* hand)
 {
-    balance += hand->betAmount;
+    auto i = std::find(hands.begin(), hands.end(), hand);
+
+    if (i != hands.end())
+    {
+        hands.erase(i);
+    }
 }
 
-void Player::looseHand(const Hand* hand) 
+void Player::winHand(Hand* hand) 
+{
+    balance += hand->betAmount;
+    removeHand(hand);
+}
+
+void Player::looseHand(Hand* hand) 
 {
     balance -= hand->betAmount;
+    removeHand(hand);
 }
 
 std::vector<Hand*> Player::getHands() 
