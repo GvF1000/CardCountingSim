@@ -10,7 +10,7 @@ void Deck::fillDeck()
         {
             for (const std::string suite : suites) 
             {
-                cardDeck.push_back(Card(rank, suite));
+                cardDeck.push_back(new Card(rank, suite));
             }
         }
 
@@ -43,7 +43,7 @@ void Deck::moveBackCards(const int numCards)
 
     for (int i = 0; i < numCards; ++i)
     {
-        cardsLeft[cardDeck[i].rank] -= 1;
+        cardsLeft[cardDeck[i]->rank] -= 1;
     }
 
     std::rotate(cardDeck.begin(), cardDeck.begin() + numCards, cardDeck.end());
@@ -52,16 +52,16 @@ void Deck::moveBackCards(const int numCards)
 
 void Deck::displayDeck()
 {
-    for (Card card : cardDeck)
+    for (Card* card : cardDeck)
     {
-        card.displayCard();
+        card->displayCard();
         std::cout << std::endl;
     }
 }
 
-std::vector<Card> Deck::drawCards(const int numCards)
+std::vector<Card*> Deck::drawCards(const int numCards)
 {
-    std::vector<Card> cards;
+    std::vector<Card*> cards;
 
     if (numCards > cardDeck.size()) 
     {

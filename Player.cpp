@@ -12,9 +12,9 @@ void Player::drawCards(Deck& deck, const int numCards, const int handBetAmount)
 
 void Player::hit(Deck& deck, Hand* hand)
 {
-    Card newCard = deck.drawCards(1)[0];
+    Card* newCard = deck.drawCards(1)[0];
     hand->cards.push_back(newCard);
-    hand->score += newCard.score;
+    hand->score += newCard->score;
 }
 
 void Player::resetHands()
@@ -22,14 +22,14 @@ void Player::resetHands()
     hands = {};
 }
 
-void Player::winHand(const Hand hand) 
+void Player::winHand(const Hand* hand) 
 {
-    balance += hand.betAmount;
+    balance += hand->betAmount;
 }
 
-void Player::looseHand(const Hand hand) 
+void Player::looseHand(const Hand* hand) 
 {
-    balance -= hand.betAmount;
+    balance -= hand->betAmount;
 }
 
 std::vector<Hand*> Player::getHands() 

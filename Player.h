@@ -20,9 +20,9 @@ public:
 
     void resetHands();
 
-    void winHand(const Hand hand);
+    void winHand(const Hand* hand);
 
-    void looseHand(const Hand hand);
+    void looseHand(const Hand* hand);
 
     std::vector<Hand*> getHands();
 
