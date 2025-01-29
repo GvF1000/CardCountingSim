@@ -2,7 +2,7 @@
 
 Player::Player(const std::string playerName, const int palyerBalance) : name(playerName), balance(palyerBalance) {}
 
-void Player::drawHands(Deck& deck, const int numCards, const int betamount)
+void Player::drawCards(Deck& deck, const int numCards, const int betamount)
 {
     Hand* hand = new Hand(deck.drawCards(numCards));
 
