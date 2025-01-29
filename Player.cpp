@@ -4,7 +4,7 @@ Player::Player(const std::string playerName, const int palyerBalance) : name(pla
 
 void Player::drawHands(Deck& deck, const int numCards, const int betamount)
 {
-    Hand hand = Hand(deck.drawCards(numCards));
+    Hand* hand = new Hand(deck.drawCards(numCards));
 
     hands.push_back(hand);
 }

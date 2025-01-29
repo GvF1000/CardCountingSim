@@ -7,7 +7,7 @@
 class Player
 {
 private:
-    std::vector<Hand> hands;
+    std::vector<Hand*> hands;
     std::string name;
     int balance;
 
