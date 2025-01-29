@@ -2,15 +2,25 @@
 
 void Dealer::drawHand(Deck& deck, const int numCards)
 {
-    hand = Hand(deck.drawCards(numCards));
+    hand = new Hand(deck.drawCards(numCards));
 }
 
 void Dealer::resetHand()
 {
-    hand = Hand();
+    hand->cards.clear();
 }
 
 void Dealer::displayHand() 
 {
-    hand.displayHand();
+    hand->displayHand();
+}
+
+void Dealer::hit(Deck& deck)
+{
+    hand->cards.push_back(deck.drawCards(1)[0]);
+}
+
+Hand* Dealer::getHand()
+{
+    return hand;
 }

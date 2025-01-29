@@ -7,7 +7,7 @@
 class Dealer
 {
 private:
-    Hand hand;
+    Hand* hand;
 
 public:
     void drawHand(Deck& deck, const int numCards);
@@ -15,6 +15,10 @@ public:
     void resetHand();
 
     void displayHand();
+
+    void hit(Deck& deck);
+
+    Hand* getHand();
 };
 
 #endif
