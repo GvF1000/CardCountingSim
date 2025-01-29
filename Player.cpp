@@ -24,6 +24,11 @@ void Player::looseHand(const Hand hand)
     balance -= hand.betAmount;
 }
 
+std::vector<Hand*> Player::getHands() 
+{
+    return hands;
+}
+
 void Player::displayHands()
 {
     for (Hand* hand : hands) {hand->displayHand();}

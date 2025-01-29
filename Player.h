@@ -22,6 +22,8 @@ public:
 
     void looseHand(const Hand hand);
 
+    std::vector<Hand*> getHands();
+
     void displayHands();
 
 };
