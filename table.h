@@ -7,7 +7,7 @@
 class Table
 {
 private:
-    std::vector<Player*> Players;
+    std::vector<Player*> players;
     Dealer dealer;
     unsigned int betLimit;
     unsigned int deckPenetration;
