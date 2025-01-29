@@ -26,5 +26,5 @@ void Player::looseHand(const Hand hand)
 
 void Player::displayHands()
 {
-    for (Hand hand : hands) {hand.displayHand();}
+    for (Hand* hand : hands) {hand->displayHand();}
 }
