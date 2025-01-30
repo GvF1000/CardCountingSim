@@ -11,7 +11,7 @@ struct Hand
     int betAmount = 0;
     std::vector<std::unique_ptr<Card>> cards;
 
-    Hand(std::vector<std::unique_ptr<Card>> const handCards = {}, const int betAmount = 0);
+    Hand(std::vector<std::unique_ptr<Card>>& const handCards = {}, const int betAmount = 0);
     void displayHand();
 };
 

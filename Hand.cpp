@@ -1,6 +1,6 @@
 #include "Hand.h"
 
-Hand::Hand(std::vector<std::unique_ptr<Card>> const handCards, const int betAmount) : cards(handCards)
+Hand::Hand(std::vector<std::unique_ptr<Card>>& const handCards, const int betAmount) : cards(handCards)
 {
     for (std::unique_ptr<Card>& card : cards) 
     {
