@@ -4,6 +4,8 @@
 
 void Deck::fillDeck()
 {
+    cardDeck.clear();
+
     for (int i = 0; i < numDecks; i++)
     {
         for (const std::string& rank : ranks)
@@ -33,29 +35,23 @@ Deck::Deck(int decks) : numDecks(decks)
     shuffleDeck();
 }
 
-void Deck::moveBackCards(const int numCards)
+void Deck::returnHand(std::unique_ptr<Hand>& hand)
 { 
-    if (numCards > cardDeck.size())
+    for (std::unique_ptr<Card>& card : hand->cards)
     {
-        std::cerr << "Cannot move more cards than available in the deck!\n";
-        return;
+        cardsLeft[card->rank] += 1;
+        cardDeck.push_back(std::move(card));
     }
 
-    for (int i = 0; i < numCards; ++i)
-    {
-        cardsLeft[cardDeck[i]->rank] -= 1;
-    }
-
-    std::rotate(cardDeck.begin(), cardDeck.begin() + numCards, cardDeck.end());
-    cardsPlayed += numCards;
+    hand->cards.clear();
 }
 
 void Deck::displayDeck()
 {
-    for (std::unique_ptr<Card>& card : cardDeck)
+    for (const std::unique_ptr<Card>& card : cardDeck)
     {
         card->displayCard();
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 }
 
@@ -71,10 +67,15 @@ std::vector<std::unique_ptr<Card>> Deck::drawCards(const int numCards)
 
     for (int i = 0; i < numCards; ++i)
     {
-        cards.push_back(cardDeck[i]);
+        cards.push_back(std::move(cardDeck.front()));
+        cardDeck.erase(cardDeck.begin());
     }
 
-    moveBackCards(numCards);
+    for (int i = 0; i < numCards; ++i)
+    {
+        cardsLeft[cards[i]->rank] -= 1;
+    }
+
     return cards;
 }
 
@@ -93,5 +94,5 @@ void Deck::displayCardsLeft()
 
 int Deck::getDeckSize()
 {
-    return (numDecks * 52);
+    return (cardDeck.size());
 }
