@@ -4,12 +4,13 @@
 #include <vector>
 #include <unordered_map>
 #include "Card.h"
+#include <memory>
 
 class Deck
 {
 private:
     int numDecks;
-    std::vector<Card*> cardDeck;
+    std::vector<std::unique_ptr<Card>> cardDeck;
     std::string suites[4] = {"Club", "Heart", "Diamond", "Spade"};
     std::string ranks[13] = {"Ace", "King", "Queen", "Jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
     std::unordered_map<std::string, int> cardsLeft;
@@ -22,7 +23,7 @@ public:
 
     void shuffleDeck();
 
-    std::vector<Card*> drawCards(const int numCards);
+    std::vector<std::unique_ptr<Card>> drawCards(const int numCards);
 
     void moveBackCards(const int numCards);
 
