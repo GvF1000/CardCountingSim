@@ -5,13 +5,13 @@
 Table::Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const unsigned int numDecks, const bool tableHitSoft17, const bool tableDoubleAfterSplit)
 : betLimit(tableBetLimit), deckPenetration(tableDeckPenetration), decks(numDecks), hitSoft17(tableHitSoft17), doubleAfterSplit(tableDoubleAfterSplit) {}
 
-void Table::addPlayer(Player* player)
+void Table::addPlayer(std::unique_ptr<Player>& player)
 {
     players.push_back(player);
 }
     
 
-void Table::removePlayer(Player* player)
+void Table::removePlayer(std::unique_ptr<Player>& player)
 {
     auto i = std::find(players.begin(), players.end(), player);
 
@@ -25,7 +25,7 @@ void Table::startGame()
 {
     Deck tableDeck = Deck(decks);
 
-    for (Player* player : players)
+    for (std::unique_ptr<Player>& player : players)
     { 
         int hands;
         std::cin >> hands;
@@ -40,9 +40,9 @@ void Table::startGame()
 
     dealer.drawHand(tableDeck, 2);
 
-    for (Player* player : players)
+    for (std::unique_ptr<Player>& player : players)
     {
-        for (Hand* hand : player->getHands()) 
+        for (std::unique_ptr<Hand>& hand : player->getHands()) 
         {
             bool hit;
             std::cin >> hit;
@@ -53,11 +53,13 @@ void Table::startGame()
 
                 if (hand->score > 21) 
                 {
-                    player->looseHand(hand);
+                    player->loseHand(tableDeck, hand);
+                    break;
                 }
                 else if (hand->score == 21)
                 {
-                    player->winHand(hand);
+                    player->winHand(tableDeck, hand);
+                    break;
                 }
                 else
                 {
@@ -67,11 +69,11 @@ void Table::startGame()
         }
     }
 
-    for (Player* player : players)
+    for (std::unique_ptr<Player>& player : players)
     {
-        for (Hand* hand : player->getHands())
+        for (std::unique_ptr<Hand>& hand : player->getHands())
         {
-            (hand->score > dealer.getHand()->score) ? player->winHand(hand) : player->looseHand(hand);
+            (hand->score > dealer.getHand()->score) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
         }
     }
 }

@@ -7,7 +7,7 @@
 class Table
 {
 private:
-    std::vector<Player*> players;
+    std::vector<std::unique_ptr<Player>> players;
     Dealer dealer;
     unsigned int decks;
     unsigned int betLimit;
@@ -18,9 +18,9 @@ private:
 public:
     Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const unsigned int numDecks, const bool tableHitSoft17, const bool tableDoubleAfterSplit);
 
-    void addPlayer(Player* player);
+    void addPlayer(std::unique_ptr<Player>& player);
 
-    void removePlayer(Player* player);
+    void removePlayer(std::unique_ptr<Player>& player);
 
     void startGame();
 };
