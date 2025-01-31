@@ -6,9 +6,10 @@ void Dealer::drawCards(Deck& deck, const int numCards)
     hand = std::make_unique<Hand>(std::move(drawnCards));
 }
 
-void Dealer::resetHand()
+void Dealer::resetHand(Deck& deck)
 {
-    hand->cards.clear();
+    deck.returnHand(std::move(hand));
+    hand.reset();
 }
 
 void Dealer::displayHand() 

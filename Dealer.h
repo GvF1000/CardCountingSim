@@ -12,7 +12,7 @@ private:
 public:
     void drawCards(Deck& deck, const int numCards);
 
-    void resetHand();
+    void resetHand(Deck& deck);
 
     void displayHand();
 
