@@ -9,7 +9,7 @@ class Table
 private:
     std::vector<std::unique_ptr<Player>> players;
     Dealer dealer;
-    unsigned int decks;
+    Deck tableDeck;
     unsigned int betLimit;
     unsigned int deckPenetration;
     bool hitSoft17;
@@ -21,6 +21,8 @@ public:
     void addPlayer(std::unique_ptr<Player>& player);
 
     void removePlayer(std::unique_ptr<Player>& player);
+
+    void dealInitialCards();
 
     void startGame();
 };

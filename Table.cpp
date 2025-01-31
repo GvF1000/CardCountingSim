@@ -3,7 +3,7 @@
 #include <iostream>
 
 Table::Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const unsigned int numDecks, const bool tableHitSoft17, const bool tableDoubleAfterSplit)
-: betLimit(tableBetLimit), deckPenetration(tableDeckPenetration), decks(numDecks), hitSoft17(tableHitSoft17), doubleAfterSplit(tableDoubleAfterSplit) {}
+: betLimit(tableBetLimit), deckPenetration(tableDeckPenetration), tableDeck(numDecks), hitSoft17(tableHitSoft17), doubleAfterSplit(tableDoubleAfterSplit) {}
 
 void Table::addPlayer(std::unique_ptr<Player>& player)
 {
@@ -29,8 +29,6 @@ void Table::removePlayer(std::unique_ptr<Player>& player)
 
 void Table::startGame()
 {
-    Deck tableDeck = Deck(decks);
-
     for (std::unique_ptr<Player>& player : players)
     { 
         int hands;
