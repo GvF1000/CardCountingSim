@@ -5,7 +5,7 @@ Player::Player(const std::string& playerName, const int playerBalance) : name(pl
 void Player::drawCards(Deck& deck, const int& numCards, const int& handBetAmount)
 {
     std::vector<std::unique_ptr<Card>> drawnCards = deck.drawCards(numCards);
-    auto hand = std::make_unique<Hand>(std::move(drawnCards), handBetAmount);
+    std::unique_ptr<Hand> hand = std::make_unique<Hand>(std::move(drawnCards), handBetAmount);
 
     hands.push_back(std::move(hand));
 }
@@ -13,13 +13,15 @@ void Player::drawCards(Deck& deck, const int& numCards, const int& handBetAmount
 void Player::hit(Deck& deck, std::unique_ptr<Hand>& hand)
 {
     std::unique_ptr<Card> newCard = std::move(deck.drawCards(1)[0]);
-    hand->cards.push_back(std::move(newCard));
-    hand->score += hand->cards.back()->score;
+    hand->addCard(std::move(newCard));
 }
 
-void Player::resetHands()
+void Player::resetHands(Deck& deck)
 {
-    hands = {};
+    for (auto& hand : hands) {
+        deck.returnHand(hand);
+    }
+    hands.clear();
 }
 
 void Player::removeHand(Deck& deck, std::unique_ptr<Hand>& hand)

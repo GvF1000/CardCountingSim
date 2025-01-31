@@ -18,7 +18,7 @@ public:
 
     void hit(Deck& deck, std::unique_ptr<Hand>& hand);
 
-    void resetHands();
+    void resetHands(Deck& deck);
 
     void winHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
