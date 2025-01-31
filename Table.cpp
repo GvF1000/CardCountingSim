@@ -7,13 +7,19 @@ Table::Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenet
 
 void Table::addPlayer(std::unique_ptr<Player>& player)
 {
-    players.push_back(player);
+    players.push_back(std::move(player));
 }
     
-
 void Table::removePlayer(std::unique_ptr<Player>& player)
 {
-    auto i = std::find(players.begin(), players.end(), player);
+    auto i = std::find_if
+    (
+        players.begin(), players.end(),
+        [&player](const std::unique_ptr<Player>& p) 
+        {
+            return p.get() == player.get();
+        }
+    );
 
     if (i != players.end())
     {
