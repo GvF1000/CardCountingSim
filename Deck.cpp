@@ -46,7 +46,7 @@ void Deck::returnHand(std::unique_ptr<Hand>& hand)
                 std::make_move_iterator(hand->cards.begin()),
                 std::make_move_iterator(hand->cards.end()));
 
-    hand->cards.clear();
+    hand.reset();
 }
 
 void Deck::displayDeck()
