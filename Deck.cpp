@@ -40,8 +40,11 @@ void Deck::returnHand(std::unique_ptr<Hand>& hand)
     for (std::unique_ptr<Card>& card : hand->cards)
     {
         cardsLeft[card->rank] += 1;
-        cardDeck.push_back(std::move(card));
     }
+
+    cardDeck.insert(cardDeck.end(), 
+                std::make_move_iterator(hand->cards.begin()),
+                std::make_move_iterator(hand->cards.end()));
 
     hand->cards.clear();
 }
