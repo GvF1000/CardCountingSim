@@ -24,6 +24,8 @@ public:
 
     void dealInitialCards();
 
+    void processPlayerActions();
+
     void startGame();
 };
 
