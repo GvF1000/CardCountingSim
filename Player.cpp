@@ -4,8 +4,8 @@ Player::Player(const std::string& playerName, const int playerBalance) : name(pl
 
 void Player::drawCards(Deck& deck, const int& numCards, const int& handBetAmount)
 {
-    std::unique_ptr<Hand> hand = std::make_unique<Hand>(deck.drawCards(numCards));
-    hand->betAmount += handBetAmount;
+    std::vector<std::unique_ptr<Card>> drawnCards = deck.drawCards(numCards);
+    auto hand = std::make_unique<Hand>(std::move(drawnCards), handBetAmount);
 
     hands.push_back(std::move(hand));
 }
@@ -22,33 +22,35 @@ void Player::resetHands()
     hands = {};
 }
 
-void Player::removeHand(Hand* hand)
+void Player::removeHand(Deck& deck, std::unique_ptr<Hand>& hand)
 {
+
     auto i = std::find_if
     (
         hands.begin(), hands.end(), 
         [&hand](const std::unique_ptr<Hand>& h) 
         {
-            return h.get() == hand;
+            return h.get() == hand.get();
         }
     );
 
     if (i != hands.end()) 
     {
+        deck.returnHand(std::move(*i));
         hands.erase(i);
     }
 }
 
-void Player::winHand(Hand* hand) 
+void Player::winHand(Deck& deck, std::unique_ptr<Hand>& hand) 
 {
     balance += hand->betAmount;
-    removeHand(hand);
+    removeHand(deck, std::move(hand));
 }
 
-void Player::looseHand(Hand* hand) 
+void Player::loseHand(Deck& deck, std::unique_ptr<Hand>& hand) 
 {
     balance -= hand->betAmount;
-    removeHand(hand);
+    removeHand(deck, std::move(hand));
 }
 
 std::vector<std::unique_ptr<Hand>>& Player::getHands() 
@@ -58,5 +60,5 @@ std::vector<std::unique_ptr<Hand>>& Player::getHands()
 
 void Player::displayHands()
 {
-    for (std::unique_ptr<Hand>& hand : hands) {hand->displayHand();}
+    for (const std::unique_ptr<Hand>& hand : hands) {hand->displayHand();}
 }

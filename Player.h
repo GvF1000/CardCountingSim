@@ -20,11 +20,11 @@ public:
 
     void resetHands();
 
-    void winHand(Hand* hand);
+    void winHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
-    void looseHand(Hand* hand);
+    void loseHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
-    void removeHand(Hand* hand);
+    void removeHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
     std::vector<std::unique_ptr<Hand>>& getHands();
 
