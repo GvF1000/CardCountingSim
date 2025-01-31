@@ -24,6 +24,8 @@ public:
 
     void loseHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
+    void tieHand(Deck& deck, std::unique_ptr<Hand>& hand);
+
     void removeHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
     std::vector<std::unique_ptr<Hand>>& getHands();

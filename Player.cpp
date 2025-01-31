@@ -55,6 +55,11 @@ void Player::loseHand(Deck& deck, std::unique_ptr<Hand>& hand)
     removeHand(deck, std::move(hand));
 }
 
+void Player::tieHand(Deck& deck, std::unique_ptr<Hand>& hand)
+{
+    removeHand(deck, std::move(hand));
+}
+
 std::vector<std::unique_ptr<Hand>>& Player::getHands() 
 {
     return hands;
