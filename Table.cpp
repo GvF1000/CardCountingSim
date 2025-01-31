@@ -69,11 +69,25 @@ void Table::startGame()
         }
     }
 
+    while (dealer.getHand()->score < 17)
+    {
+        dealer.hit(tableDeck);
+    }
+
+    int dealerScore = dealer.getHand()->score;
+
     for (std::unique_ptr<Player>& player : players)
     {
         for (std::unique_ptr<Hand>& hand : player->getHands())
         {
-            (hand->score > dealer.getHand()->score) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
+            if (dealerScore > 21)
+            {
+                player->winHand(tableDeck, hand);
+            }
+            else
+            {
+            (hand->score > dealerScore) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
+            }
         }
     }
 }
