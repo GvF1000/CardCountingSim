@@ -1,8 +1,9 @@
 #include "Dealer.h"
 
-void Dealer::drawHand(Deck& deck, const int numCards)
+void Dealer::drawCards(Deck& deck, const int numCards)
 {
-    hand = new Hand(deck.drawCards(numCards));
+    std::vector<std::unique_ptr<Card>> drawnCards = deck.drawCards(numCards);
+    hand = std::make_unique<Hand>(std::move(drawnCards));
 }
 
 void Dealer::resetHand()
@@ -17,10 +18,12 @@ void Dealer::displayHand()
 
 void Dealer::hit(Deck& deck)
 {
-    hand->cards.push_back(deck.drawCards(1)[0]);
+    std::unique_ptr<Card> newCard = std::move(deck.drawCards(1)[0]);
+    hand->cards.push_back(std::move(newCard));
+    hand->score += hand->cards.back()->score;
 }
 
-Hand* Dealer::getHand()
+std::unique_ptr<Hand>& Dealer::getHand()
 {
     return hand;
 }

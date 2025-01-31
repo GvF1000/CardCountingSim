@@ -7,10 +7,10 @@
 class Dealer
 {
 private:
-    Hand* hand;
+    std::unique_ptr<Hand> hand;
 
 public:
-    void drawHand(Deck& deck, const int numCards);
+    void drawCards(Deck& deck, const int numCards);
 
     void resetHand();
 
@@ -18,7 +18,7 @@ public:
 
     void hit(Deck& deck);
 
-    Hand* getHand();
+    std::unique_ptr<Hand>& getHand();
 };
 
 #endif
