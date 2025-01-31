@@ -90,6 +90,10 @@ void Table::startGame()
             {
                 player->winHand(tableDeck, hand);
             }
+            else if (dealerScore == hand->score)
+            {
+                continue;
+            }
             else
             {
             (hand->score > dealerScore) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
