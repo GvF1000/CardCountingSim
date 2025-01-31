@@ -38,7 +38,7 @@ void Table::startGame()
         }
     }
 
-    dealer.drawHand(tableDeck, 2);
+    dealer.drawCards(tableDeck, 2);
 
     for (std::unique_ptr<Player>& player : players)
     {
