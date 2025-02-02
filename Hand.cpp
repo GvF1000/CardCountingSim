@@ -30,6 +30,11 @@ int Hand::getScore()
     return score;
 }
 
+int Hand::getBetAmount()
+{
+    return betAmount;
+}
+
 void Hand::displayHand() 
 {
     for (std::unique_ptr<Card>& card : cards) 
