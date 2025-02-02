@@ -43,21 +43,19 @@ void Player::removeHand(Deck& deck, std::unique_ptr<Hand>& hand)
     }
 }
 
-void Player::winHand(Deck& deck, std::unique_ptr<Hand>& hand) 
+void Player::winHand(Deck& deck, int betAmount) 
 {
-    balance += hand->betAmount;
-    removeHand(deck, std::move(hand));
+    balance += betAmount;
 }
 
-void Player::loseHand(Deck& deck, std::unique_ptr<Hand>& hand) 
+void Player::loseHand(Deck& deck, int betAmount) 
 {
-    balance -= hand->betAmount;
-    removeHand(deck, std::move(hand));
+    balance -= betAmount;
 }
 
-void Player::tieHand(Deck& deck, std::unique_ptr<Hand>& hand)
+void Player::tieHand(Deck& deck, int handBetAmount)
 {
-    removeHand(deck, std::move(hand));
+
 }
 
 std::vector<std::unique_ptr<Hand>>& Player::getHands() 
@@ -67,5 +65,8 @@ std::vector<std::unique_ptr<Hand>>& Player::getHands()
 
 void Player::displayHands()
 {
-    for (const std::unique_ptr<Hand>& hand : hands) {hand->displayHand();}
+    for (const std::unique_ptr<Hand>& hand : hands) 
+    {
+        hand->displayHand();
+    }
 }

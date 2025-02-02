@@ -20,11 +20,11 @@ public:
 
     void resetHands(Deck& deck);
 
-    void winHand(Deck& deck, std::unique_ptr<Hand>& hand);
+    void winHand(Deck& deck, int betAmount);
 
-    void loseHand(Deck& deck, std::unique_ptr<Hand>& hand);
+    void loseHand(Deck& deck, int betAmount);
 
-    void tieHand(Deck& deck, std::unique_ptr<Hand>& hand);
+    void tieHand(Deck& deck, int handBetAmount);
 
     void removeHand(Deck& deck, std::unique_ptr<Hand>& hand);
 
