@@ -12,6 +12,7 @@ struct Hand
     std::vector<std::unique_ptr<Card>> cards;
 
     Hand(std::vector<std::unique_ptr<Card>>& const handCards = {}, const int betAmount = 0);
+    int getScore();
     void addCard(std::unique_ptr<Card>& card);
     void displayHand();
 };

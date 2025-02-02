@@ -14,6 +14,11 @@ void Hand::addCard(std::unique_ptr<Card>& card)
     score += cards.back()->score;
 }
 
+int Hand::getScore()
+{
+    return score;
+}
+
 void Hand::displayHand() 
 {
     for (std::unique_ptr<Card>& card : cards) 
