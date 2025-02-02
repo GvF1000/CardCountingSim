@@ -58,7 +58,7 @@ void Table::processPlayerActions()
             {
                 player->hit(tableDeck, hand);
 
-                if (hand->score > 21 || hand->score == 21) 
+                if (hand->getScore() > 21 || hand->getScore() == 21) 
                 {
                     break;
                 }
@@ -68,7 +68,7 @@ void Table::processPlayerActions()
         }
     }
 
-    while (dealer.getHand()->score < 17)
+    while (dealer.getHand()->getScore() < 17)
     {
         dealer.hit(tableDeck);
     }
@@ -80,13 +80,13 @@ void Table::startGame()
 
     processPlayerActions();
 
-    int dealerScore = dealer.getHand()->score;
+    int dealerScore = dealer.getHand()->getScore();
 
     for (std::unique_ptr<Player>& player : players)
     {
         for (std::unique_ptr<Hand>& hand : player->getHands())
         {
-            if (hand->score > 21)
+            if (hand->getScore() > 21)
             {
                 player->loseHand(tableDeck, hand);
             }
@@ -94,13 +94,13 @@ void Table::startGame()
             {
                 player->winHand(tableDeck, hand);
             }
-            else if (dealerScore == hand->score)
+            else if (dealerScore == hand->getScore())
             {
                 player->tieHand(tableDeck, hand);
             }
             else
             {
-            (hand->score > dealerScore) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
+            (hand->getScore() > dealerScore) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
             }
         }
     }
