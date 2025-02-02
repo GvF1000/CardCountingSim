@@ -9,6 +9,11 @@ Card::Card(const std::string r, const std::string s) : rank(r), suite(s)
     else {score = std::stoi(rank);}
 }
 
+const int Card::getScore()
+{
+    return score;
+}
+
 void Card::displayCard()
 {
     std::cout << "Rank: " << rank << "\n";
