@@ -13,7 +13,7 @@ const std::vector<std::unique_ptr<Card>>& Hand::getCards()
 int Hand::calculateScore()
 {
     score = 0;
-    for (const std::unique_ptr<Card>& card : getCards()) 
+    for (const std::unique_ptr<Card>& card : cards) 
     {
         score += card->getScore();
     }
