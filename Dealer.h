@@ -18,7 +18,7 @@ public:
 
     void hit(Deck& deck);
 
-    std::unique_ptr<Hand>& getHand();
+    const std::unique_ptr<Hand>& getHand();
 };
 
 #endif

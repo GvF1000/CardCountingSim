@@ -20,11 +20,10 @@ void Dealer::displayHand()
 void Dealer::hit(Deck& deck)
 {
     std::unique_ptr<Card> newCard = std::move(deck.drawCards(1)[0]);
-    hand->cards.push_back(std::move(newCard));
-    hand->score += hand->cards.back()->score;
+    hand->addCard(std::move(newCard));
 }
 
-std::unique_ptr<Hand>& Dealer::getHand()
+const std::unique_ptr<Hand>& Dealer::getHand()
 {
     return hand;
 }
