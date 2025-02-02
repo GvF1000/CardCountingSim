@@ -14,6 +14,16 @@ const int Card::getScore()
     return score;
 }
 
+const std::string& Card::getRank()
+{
+    return rank;
+}
+
+const std::string& Card::getSuite()
+{
+    return suite;
+}
+
 void Card::displayCard()
 {
     std::cout << "Rank: " << rank << "\n";
