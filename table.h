@@ -15,16 +15,14 @@ private:
     bool hitSoft17;
     bool doubleAfterSplit;
 
+    void dealInitialCards();
+    void processPlayerActions();
 public:
     Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const unsigned int numDecks, const bool tableHitSoft17, const bool tableDoubleAfterSplit);
 
     void addPlayer(std::unique_ptr<Player>& player);
 
     void removePlayer(std::unique_ptr<Player>& player);
-
-    void dealInitialCards();
-
-    void processPlayerActions();
 
     void startGame();
 };
