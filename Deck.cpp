@@ -37,14 +37,14 @@ Deck::Deck(int decks) : numDecks(decks)
 
 void Deck::returnHand(std::unique_ptr<Hand>& hand)
 { 
-    for (std::unique_ptr<Card>& card : hand->cards)
+    for (const std::unique_ptr<Card>& card : hand->getCards())
     {
-        cardsLeft[card->rank] += 1;
+        cardsLeft[card->getRank()] += 1;
     }
 
     cardDeck.insert(cardDeck.end(), 
-                std::make_move_iterator(hand->cards.begin()),
-                std::make_move_iterator(hand->cards.end()));
+                std::make_move_iterator(hand->getCards().begin()),
+                std::make_move_iterator(hand->getCards().end()));
 
     hand.reset();
 }
@@ -76,7 +76,7 @@ std::vector<std::unique_ptr<Card>> Deck::drawCards(const int numCards)
 
     for (int i = 0; i < numCards; ++i)
     {
-        cardsLeft[cards[i]->rank] -= 1;
+        cardsLeft[cards[i]->getRank()] -= 1;
     }
 
     return cards;
