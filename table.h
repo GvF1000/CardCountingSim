@@ -17,6 +17,12 @@ private:
 
     void dealInitialCards();
     void processPlayerActions();
+    void processDealerActions();
+    bool isBust(const int score);
+    bool isTie(const int playerScore, const int dealerHandScore);
+    bool isPlayerWinning(const int playerScore, const int dealerScore);
+    void evaluateHandOutcome(const std::unique_ptr<Player>& player, const std::unique_ptr<Hand>& hand, int dealerScore);
+    void returnPlayersHands();
 public:
     Table(const unsigned int tableBetLimit, const unsigned int tableDeckPenetration, const unsigned int numDecks, const bool tableHitSoft17, const bool tableDoubleAfterSplit);
 

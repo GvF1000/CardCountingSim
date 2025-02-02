@@ -67,11 +67,64 @@ void Table::processPlayerActions()
             }
         }
     }
+}
 
+void Table::processDealerActions()
+{
     const std::unique_ptr<Hand>& dealerHand = dealer.getHand();
     while (dealerHand->getScore() < 17)
     {
         dealer.hit(tableDeck);
+    }
+}
+
+bool Table::isBust(const int score)
+{
+    return score > 21;
+}
+
+bool Table::isTie(const int playerScore, const int dealerScore)
+{
+    return playerScore == dealerScore;
+}
+
+bool Table::isPlayerWinning(const int playerScore, const int dealerScore)
+{
+    return playerScore > dealerScore;
+}
+
+void Table::evaluateHandOutcome(const std::unique_ptr<Player>& player, const std::unique_ptr<Hand>& playerHand, int dealerHandScore)
+{
+    const int playerHandScore = playerHand->getScore();
+    const int handBetAmount = playerHand->getBetAmount();
+
+    if (isBust(playerHandScore))
+    {
+        player->loseHand(tableDeck, handBetAmount);
+    }
+    else if (isBust(dealerHandScore))
+    {
+        player->winHand(tableDeck, handBetAmount);
+    }
+    else if (isTie(playerHandScore, dealerHandScore))
+    {
+        player->tieHand(tableDeck, handBetAmount);
+    }
+    else if (isPlayerWinning(playerHandScore, dealerHandScore))
+    {
+        player->winHand(tableDeck, handBetAmount);
+    }
+    else
+    {
+        player->loseHand(tableDeck, handBetAmount);
+    }
+}
+
+void Table::returnPlayersHands()
+{
+    for (const std::unique_ptr<Player>& player : players)
+    {
+        player->resetHands(tableDeck);
     }
 }
 
@@ -81,30 +134,16 @@ void Table::startGame()
 
     processPlayerActions();
 
-    const int dealerScore = dealer.getHand()->getScore();
+    processDealerActions();
 
-    for (std::unique_ptr<Player>& player : players)
+    const int dealerHandScore = dealer.getHand()->getScore();
+    for (const std::unique_ptr<Player>& player : players)
     {
-        for (std::unique_ptr<Hand>& hand : player->getHands())
+        for (const std::unique_ptr<Hand>& hand : player->getHands())
         {
-            const int handScore = hand->getScore();
-
-            if (handScore > 21)
-            {
-                player->loseHand(tableDeck, hand);
-            }
-            else if (dealerScore > 21)
-            {
-                player->winHand(tableDeck, hand);
-            }
-            else if (dealerScore == handScore)
-            {
-                player->tieHand(tableDeck, hand);
-            }
-            else
-            {
-            (handScore > dealerScore) ? player->winHand(tableDeck, hand) : player->loseHand(tableDeck, hand);
-            }
+            evaluateHandOutcome(player, hand, dealerHandScore);
         }
     }
+
+    returnPlayersHands();
 }
