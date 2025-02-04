@@ -128,18 +128,21 @@ void Table::returnPlayersHands()
     }
 }
 
-void Table::affirmPlayers()
-{
-    for (std::unique_ptr<Player>& player : players)
-    {
-        bool choice;
-        std::cin >> choice;
-
-        if (!choice)
-        {
-            removePlayer(player);
-        }
-    }
+void Table::affirmPlayers() {
+    players.erase
+    (
+        std::remove_if
+        (
+            players.begin(), players.end(), 
+            [](const std::unique_ptr<Player>& player) 
+            {
+                bool choice;
+                std::cin >> choice;
+                return !choice;
+            }
+        ),
+        players.end()
+    );
 }
 
 void Table::startGame()
