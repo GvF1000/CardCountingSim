@@ -3,7 +3,7 @@
 
 #include <string>
 
-struct Card
+class Card
 {
 private:
     std::string rank;

@@ -5,7 +5,7 @@
 #include <memory>
 #include "Card.h"
 
-struct Hand
+class Hand
 {
 private:
     int score = 0;
