@@ -137,7 +137,7 @@ void Table::affirmPlayers()
 
         if (!choice)
         {
-            removePlayer(std::move(player));
+            removePlayer(player);
         }
     }
 }
