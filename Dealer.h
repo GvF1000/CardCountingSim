@@ -14,11 +14,11 @@ public:
 
     void resetHand(Deck& deck);
 
-    void displayHand();
+    void displayHand() const;
 
     void hit(Deck& deck);
 
-    const std::unique_ptr<Hand>& getHand();
+    const std::unique_ptr<Hand>& getHand() const;
 };
 
 #endif

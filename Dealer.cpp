@@ -12,7 +12,7 @@ void Dealer::resetHand(Deck& deck)
     hand.reset();
 }
 
-void Dealer::displayHand() 
+void Dealer::displayHand() const
 {
     hand->displayHand();
 }
@@ -23,7 +23,7 @@ void Dealer::hit(Deck& deck)
     hand->addCard(std::move(newCard));
 }
 
-const std::unique_ptr<Hand>& Dealer::getHand()
+const std::unique_ptr<Hand>& Dealer::getHand() const
 {
     return hand;
 }

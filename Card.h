@@ -13,9 +13,9 @@ private:
 
 public:
     Card(const std::string r, const std::string s);
-    const int getScore();
-    const std::string& getRank();
-    const std::string& getSuite();
+    int getScore() const;
+    const std::string& getRank() const;
+    const std::string& getSuite() const;
     void displayCard();
 };
 

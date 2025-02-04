@@ -13,14 +13,13 @@ private:
     std::vector<std::unique_ptr<Card>> cards;
 
     int calculateScore();
-
 public:
-    Hand(std::vector<std::unique_ptr<Card>>& const handCards = {}, const int betAmount = 0);
-    const std::vector<std::unique_ptr<Card>>& getCards();
-    int getScore();
-    int getBetAmount();
+    Hand(std::vector<std::unique_ptr<Card>>& handCards = {}, int betAmount = 0);
+    const std::vector<std::unique_ptr<Card>>& getCards() const;
+    int getScore() const;
+    int getBetAmount() const;
     void addCard(std::unique_ptr<Card>& card);
-    void displayHand();
+    void displayHand() const;
 };
 
 #endif

@@ -9,17 +9,17 @@ Card::Card(const std::string r, const std::string s) : rank(r), suite(s)
     else {score = std::stoi(rank);}
 }
 
-const int Card::getScore()
+int Card::getScore() const
 {
     return score;
 }
 
-const std::string& Card::getRank()
+const std::string& Card::getRank() const
 {
     return rank;
 }
 
-const std::string& Card::getSuite()
+const std::string& Card::getSuite() const
 {
     return suite;
 }

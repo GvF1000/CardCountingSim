@@ -128,22 +128,41 @@ void Table::returnPlayersHands()
     }
 }
 
-void Table::startGame()
+void Table::affirmPlayers()
 {
-    dealInitialCards();
-
-    processPlayerActions();
-
-    processDealerActions();
-
-    const int dealerHandScore = dealer.getHand()->getScore();
-    for (const std::unique_ptr<Player>& player : players)
+    for (std::unique_ptr<Player>& player : players)
     {
-        for (const std::unique_ptr<Hand>& hand : player->getHands())
+        bool choice;
+        std::cin >> choice;
+
+        if (!choice)
         {
-            evaluateHandOutcome(player, hand, dealerHandScore);
+            removePlayer(std::move(player));
         }
     }
+}
 
-    returnPlayersHands();
+void Table::startGame()
+{
+    while (!players.empty())
+    {
+        dealInitialCards();
+
+        processPlayerActions();
+
+        processDealerActions();
+
+        const int dealerHandScore = dealer.getHand()->getScore();
+        for (const std::unique_ptr<Player>& player : players)
+        {
+            for (const std::unique_ptr<Hand>& hand : player->getHands())
+            {
+                evaluateHandOutcome(player, hand, dealerHandScore);
+            }
+        }
+
+        returnPlayersHands();
+
+        affirmPlayers();
+    }
 }

@@ -49,7 +49,7 @@ void Deck::returnHand(std::unique_ptr<Hand>& hand)
     hand.reset();
 }
 
-void Deck::displayDeck()
+void Deck::displayDeck() const
 {
     for (const std::unique_ptr<Card>& card : cardDeck)
     {
@@ -82,12 +82,12 @@ std::vector<std::unique_ptr<Card>> Deck::drawCards(const int numCards)
     return cards;
 }
 
-int Deck::getCardsPlayed() 
+int Deck::getCardsPlayed() const
 {
     return cardsPlayed;
 }
 
-void Deck::displayCardsLeft()
+void Deck::displayCardsLeft() const
 {
     for (const auto& pair : cardsLeft)
     {
@@ -95,7 +95,7 @@ void Deck::displayCardsLeft()
     }
 }
 
-int Deck::getDeckSize()
+int Deck::getDeckSize() const
 {
     return (cardDeck.size());
 }

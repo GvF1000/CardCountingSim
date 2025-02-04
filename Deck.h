@@ -4,7 +4,6 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
-#include "Card.h"
 #include "Hand.h"
 
 class Deck
@@ -28,13 +27,13 @@ public:
 
     void returnHand(std::unique_ptr<Hand>& hand);
 
-    int getCardsPlayed();
+    int getCardsPlayed() const;
 
-    int getDeckSize();
+    int getDeckSize() const;
 
-    void displayDeck();
+    void displayDeck() const;
 
-    void displayCardsLeft();
+    void displayCardsLeft() const;
 };
 
 #endif

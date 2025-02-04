@@ -58,7 +58,7 @@ void Player::tieHand(Deck& deck, int handBetAmount)
 
 }
 
-std::vector<std::unique_ptr<Hand>>& Player::getHands() 
+std::vector<std::unique_ptr<Hand>>& Player::getHands()
 {
     return hands;
 }
