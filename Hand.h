@@ -14,7 +14,7 @@ private:
 
     int calculateScore();
 public:
-    Hand(std::vector<std::unique_ptr<Card>>& handCards = {}, int betAmount = 0);
+    Hand(std::vector<std::unique_ptr<Card>>& handCards, int handBetAmount = 0);
     const std::vector<std::unique_ptr<Card>>& getCards() const;
     int getScore() const;
     int getBetAmount() const;

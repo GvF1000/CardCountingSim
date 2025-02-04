@@ -1,6 +1,6 @@
 #include "Hand.h"
 
-Hand::Hand(std::vector<std::unique_ptr<Card>>& handCards, int betAmount) : cards(handCards)
+Hand::Hand(std::vector<std::unique_ptr<Card>>& handCards, int handBetAmount) : cards(std::move(handCards)), betAmount(handBetAmount)
 {
     calculateScore();
 }
